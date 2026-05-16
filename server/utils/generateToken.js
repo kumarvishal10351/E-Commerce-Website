@@ -1,4 +1,10 @@
 /**
+ * SECTION: JWT cookie response helper
+ * Signs a token for the user and sends it via httpOnly cookie + JSON body.
+ */
+
+// ─── sendTokenResponse — used after login/register/password reset ───
+/**
  * Generate JWT token and send it via cookie + JSON response.
  */
 const sendTokenResponse = (user, statusCode, res) => {

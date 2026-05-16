@@ -1,6 +1,9 @@
 /** Infinite brand logo marquee */
+
+// SECTION: Brand list — duplicated in render for seamless CSS marquee loop
 const BRANDS = ['Nike', 'Adidas', 'Chanel', 'Dior', 'Sony', 'Ray-Ban', 'Fossil', 'Logitech', "L'Oréal", 'Lakme'];
 
+// SECTION: Marquee strip — horizontal scrolling partner names
 const BrandMarquee = () => (
   <section className="py-12 border-y border-white/5 overflow-hidden">
     <div className="flex animate-marquee whitespace-nowrap">

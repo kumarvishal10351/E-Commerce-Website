@@ -1,10 +1,10 @@
+/** SECTION: Smooth scroll provider — Lenis inertial scrolling (skipped if reduced motion) */
+
 import { useEffect } from 'react';
 import Lenis from 'lenis';
 import { prefersReducedMotion } from '../utils/motion';
 
-/**
- * Lenis smooth scroll provider
- */
+// ─── Component: init Lenis RAF loop, cleanup on unmount ───
 const SmoothScroll = ({ children }) => {
   useEffect(() => {
     if (prefersReducedMotion()) return;

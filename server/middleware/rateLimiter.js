@@ -1,6 +1,11 @@
+/**
+ * SECTION: Rate limiting
+ * Throttles API and auth endpoints to reduce abuse and brute-force attempts.
+ */
+
 const rateLimit = require('express-rate-limit');
 
-// General API rate limiter
+// ─── apiLimiter — general /api traffic ───
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100,
@@ -12,7 +17,7 @@ const apiLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// Stricter limiter for auth routes
+// ─── authLimiter — login/register/forgot-password ───
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 10,

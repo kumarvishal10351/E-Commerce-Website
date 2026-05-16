@@ -18,9 +18,11 @@ import { HiOutlineArrowRight, HiOutlineTruck, HiOutlineShieldCheck, HiOutlineRef
 
 /** Premium homepage */
 const Home = () => {
+  // SECTION: State
   const [featured, setFeatured] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // SECTION: Effects
   useEffect(() => {
     (async () => {
       try {
@@ -34,9 +36,11 @@ const Home = () => {
     })();
   }, []);
 
+  // SECTION: JSX
   return (
     <motion.div className="pb-20 md:pb-0">
       <Hero />
+      {/* Trust badges */}
       <section className="border-y border-white/5 py-8">
         <motion.div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
@@ -52,6 +56,7 @@ const Home = () => {
           ))}
         </motion.div>
       </section>
+      {/* Categories carousel */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <motion.div className="flex justify-between items-end mb-10">
           <motion.div><h2 className="section-heading">Shop by Category</h2><p className="section-sub">Explore curated collections</p></motion.div>
@@ -68,6 +73,7 @@ const Home = () => {
           ))}
         </Swiper>
       </section>
+      {/* Featured products */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <motion.div className="flex justify-between items-end mb-10">
           <motion.div><h2 className="section-heading">Featured</h2><p className="section-sub">Handpicked for you</p></motion.div>
@@ -77,6 +83,7 @@ const Home = () => {
           {loading ? Array.from({ length: 8 }).map((_, i) => <ProductCardSkeleton key={i} />) : featured.map((p, i) => <ProductCard key={p._id} product={p} index={i} />)}
         </motion.div>
       </section>
+      {/* Marketing blocks */}
       <SaleBanner />
       <BrandMarquee />
       <Testimonials />

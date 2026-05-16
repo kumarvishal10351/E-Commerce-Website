@@ -9,6 +9,7 @@ import { PRODUCTS } from '../data/products';
 
 /** Live search results page */
 const Search = () => {
+  // SECTION: URL params & state
   const [params] = useSearchParams();
   const q = params.get('q') || '';
   const [query, setQuery] = useState(q);
@@ -16,6 +17,7 @@ const Search = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // SECTION: Effects
   useEffect(() => setQuery(q), [q]);
 
   useEffect(() => {
@@ -37,6 +39,7 @@ const Search = () => {
     })();
   }, [debounced]);
 
+  // SECTION: JSX
   return (
     <motion.div className="max-w-7xl mx-auto px-4 py-8 min-h-[60vh]">
       <h1 className="font-serif text-3xl font-bold mb-6">Search</h1>

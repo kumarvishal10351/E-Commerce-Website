@@ -1,3 +1,8 @@
+/**
+ * SECTION: Order controller
+ * Checkout, order history, admin fulfillment, and dashboard analytics.
+ */
+
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 const User = require('../models/User');
@@ -6,6 +11,7 @@ const ErrorResponse = require('../utils/ErrorResponse');
 const sendEmail = require('../utils/sendEmail');
 const { orderConfirmationEmail, orderStatusEmail } = require('../utils/emailTemplates');
 
+// ─── Create order (stock check, confirmation email) ───
 const createOrder = asyncHandler(async (req, res, next) => {
   const { orderItems, shippingAddress, paymentInfo, itemsPrice, taxPrice, shippingPrice, totalPrice, discountAmount, couponCode } = req.body;
   if (!orderItems || orderItems.length === 0) return next(new ErrorResponse('No order items', 400));
@@ -20,6 +26,7 @@ const createOrder = asyncHandler(async (req, res, next) => {
   res.status(201).json({ success: true, order });
 });
 
+// ─── Customer: my orders & single order ───
 const getMyOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find({ user: req.user.id }).sort('-createdAt');
   res.status(200).json({ success: true, count: orders.length, orders });
@@ -32,6 +39,7 @@ const getOrder = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, order });
 });
 
+// ─── Admin: list orders & update status ───
 const getAllOrders = asyncHandler(async (req, res) => {
   const page = parseInt(req.query.page, 10) || 1;
   const limit = parseInt(req.query.limit, 10) || 20;
@@ -55,6 +63,7 @@ const updateOrderStatus = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, order });
 });
 
+// ─── Admin: revenue & order analytics ───
 const getDashboardStats = asyncHandler(async (req, res) => {
   const [totalOrders, totalUsers, totalProducts] = await Promise.all([Order.countDocuments(), User.countDocuments(), Product.countDocuments()]);
   const revenueResult = await Order.aggregate([{ $match: { orderStatus: { $ne: 'Cancelled' } } }, { $group: { _id: null, totalRevenue: { $sum: '$totalPrice' } } }]);

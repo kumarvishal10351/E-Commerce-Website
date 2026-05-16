@@ -4,6 +4,7 @@ import Button from '../components/ui/Button';
 
 /** Creative 404 page */
 const NotFound = () => (
+  // SECTION: JSX
   <div className="min-h-[80vh] flex items-center justify-center px-4 dot-grid">
     <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center">
       <motion.p animate={{ y: [0, -10, 0] }} transition={{ duration: 3, repeat: Infinity }} className="text-8xl md:text-9xl font-serif font-bold bg-gradient-to-r from-luxury-purple to-luxury-gold bg-clip-text text-transparent mb-4">

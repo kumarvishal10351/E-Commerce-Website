@@ -1,8 +1,14 @@
+/**
+ * SECTION: Authentication & authorization middleware
+ * Verifies JWT tokens and restricts routes to specific user roles.
+ */
+
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('./asyncHandler');
 const ErrorResponse = require('../utils/ErrorResponse');
 const User = require('../models/User');
 
+// ─── protect — require logged-in user ───
 /**
  * Protect routes — require valid JWT token.
  * Token can be in cookies or Authorization header.
@@ -40,6 +46,7 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
+// ─── authorize — restrict by role (e.g. admin) ───
 /**
  * Authorize specific roles (e.g., 'admin').
  */

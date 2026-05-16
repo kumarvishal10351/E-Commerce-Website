@@ -1,8 +1,14 @@
+/**
+ * SECTION: User model
+ * Accounts, shipping addresses, wishlist, roles, and password-reset tokens.
+ */
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
+// ─── Nested address sub-schema ───
 const addressSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   phone: { type: String, required: true },
@@ -15,6 +21,7 @@ const addressSchema = new mongoose.Schema({
   isDefault: { type: Boolean, default: false },
 });
 
+// ─── User schema ───
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -65,6 +72,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// ─── Middleware & instance methods ───
 // Hash password before saving
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();

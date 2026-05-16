@@ -1,3 +1,4 @@
+// SECTION: Imports — bottom tab bar for mobile; cart opens drawer instead of route
 import { Link, useLocation } from 'react-router-dom';
 import { HiOutlineHome, HiOutlineSearch, HiOutlineShoppingBag, HiOutlineUser } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,12 +8,14 @@ const MobileNav = () => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const { totalItems } = useSelector((s) => s.cart);
+  // SECTION: Nav items — Home, Search, Cart (action), Profile
   const links = [
     { to: '/', icon: HiOutlineHome, label: 'Home' },
     { to: '/search', icon: HiOutlineSearch, label: 'Search' },
     { to: null, icon: HiOutlineShoppingBag, label: 'Cart', onClick: () => dispatch(openCart()) },
     { to: '/profile', icon: HiOutlineUser, label: 'Profile' },
   ];
+  // SECTION: Render — fixed bottom bar; highlights active route in gold
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 glass-card !rounded-none border-t border-white/10 pb-safe">
       <div className="flex justify-around py-2">

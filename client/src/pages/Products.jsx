@@ -8,7 +8,10 @@ import Rating from '../components/ui/Rating';
 import { getProductsAPI, getCategoriesAPI, getBrandsAPI } from '../store/api';
 
 const Products = () => {
+  // SECTION: URL params
   const [searchParams, setSearchParams] = useSearchParams();
+
+  // SECTION: State
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -26,6 +29,7 @@ const Products = () => {
   const sort = searchParams.get('sort') || '-createdAt';
   const page = parseInt(searchParams.get('page')) || 1;
 
+  // SECTION: Effects — load filter metadata
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -36,6 +40,7 @@ const Products = () => {
     fetch();
   }, []);
 
+  // SECTION: Effects — load products when filters change
   useEffect(() => {
     const fetch = async () => {
       setLoading(true);
@@ -57,6 +62,7 @@ const Products = () => {
     fetch();
   }, [keyword, category, brand, minPrice, maxPrice, rating, sort, page]);
 
+  // SECTION: Handlers
   const updateFilter = (key, value) => {
     const p = new URLSearchParams(searchParams);
     if (value) p.set(key, value); else p.delete(key);
@@ -65,6 +71,7 @@ const Products = () => {
   const clearFilters = () => setSearchParams({});
   const hasFilters = keyword || category || brand || minPrice || maxPrice || rating;
 
+  // SECTION: Filters panel (sub-component)
   const Filters = () => (
     <div className="space-y-6">
       {hasFilters && <button onClick={clearFilters} className="text-sm text-red-500 flex items-center gap-1"><HiOutlineX className="w-4 h-4" /> Clear filters</button>}
@@ -103,8 +110,10 @@ const Products = () => {
     </div>
   );
 
+  // SECTION: JSX
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      {/* Page header */}
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold">{keyword ? `Results for "${keyword}"` : 'All Products'}</h1>
@@ -118,7 +127,9 @@ const Products = () => {
         </div>
       </div>
       <div className="flex gap-8">
+        {/* Desktop sidebar filters */}
         <aside className="hidden lg:block w-64 flex-shrink-0"><div className="card p-6 sticky top-24"><Filters /></div></aside>
+        {/* Mobile filters drawer */}
         {showFilters && (
           <div className="fixed inset-0 z-50 lg:hidden">
             <div className="absolute inset-0 bg-black/50" onClick={() => setShowFilters(false)} aria-hidden />
@@ -131,6 +142,7 @@ const Products = () => {
             </motion.div>
           </div>
         )}
+        {/* Product grid */}
         <div className="flex-1">
           {loading ? <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">{Array.from({length:12}).map((_,i) => <ProductCardSkeleton key={i} />)}</div>
           : products.length === 0 ? <div className="text-center py-20"><p className="text-6xl mb-4">🔍</p><h3 className="text-xl font-bold mb-2">No products found</h3><button onClick={clearFilters} className="btn-primary mt-4">Clear Filters</button></div>

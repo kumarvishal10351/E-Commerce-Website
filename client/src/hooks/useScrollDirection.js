@@ -1,6 +1,8 @@
+/** SECTION: useScrollDirection — tracks scroll up/down and whether user scrolled past threshold */
+
 import { useState, useEffect } from 'react';
 
-/** Returns 'up' | 'down' based on scroll direction */
+// ─── Hook: direction, scrollY, and isScrolled (e.g. hide/show header) ───
 export const useScrollDirection = (threshold = 10) => {
   const [direction, setDirection] = useState('up');
   const [scrollY, setScrollY] = useState(0);

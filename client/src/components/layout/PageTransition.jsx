@@ -1,3 +1,4 @@
+// SECTION: Imports — fade/slide wrapper keyed by route pathname
 import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { prefersReducedMotion } from '../../utils/motion';
@@ -7,8 +8,10 @@ import { prefersReducedMotion } from '../../utils/motion';
  */
 const PageTransition = ({ children }) => {
   const { pathname } = useLocation();
+  // SECTION: Reduced motion — plain div, no animation
   if (prefersReducedMotion()) return <div key={pathname}>{children}</div>;
 
+  // SECTION: Animated transition — re-mounts on pathname change
   return (
     <motion.div
       key={pathname}

@@ -1,3 +1,4 @@
+// SECTION: Imports — Redux cart slice; slide-in panel with line items and totals
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -11,6 +12,7 @@ import Button from '../ui/Button';
  * Slide-in cart drawer with blur overlay
  */
 const CartDrawer = () => {
+  // SECTION: Redux state — drawer visibility and cart pricing breakdown
   const dispatch = useDispatch();
   const { cartOpen } = useSelector((s) => s.ui);
   const { items, itemsPrice, shippingPrice, taxPrice, totalPrice } = useSelector((s) => s.cart);
@@ -19,7 +21,9 @@ const CartDrawer = () => {
     <AnimatePresence>
       {cartOpen && (
         <>
+          {/* SECTION: Backdrop — click outside closes drawer */}
           <div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => dispatch(closeCart())} className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[80]" />
+          {/* SECTION: Drawer panel — header, scrollable items, checkout footer */}
           <motion.aside initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', damping: 28, stiffness: 300 }} className="fixed right-0 top-0 bottom-0 w-full max-w-md glass-card z-[81] flex flex-col border-l border-white/10 rounded-none">
             <header className="flex items-center justify-between p-5 border-b border-white/10">
               <h2 className="font-serif text-xl">Your Bag ({items.length})</h2>

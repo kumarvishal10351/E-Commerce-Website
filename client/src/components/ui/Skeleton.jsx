@@ -1,3 +1,4 @@
+// SECTION: Product card skeleton — placeholder while product grid data loads
 export const ProductCardSkeleton = () => (
   <div className="glass-card overflow-hidden">
     <div className="aspect-square skeleton-luxury" />
@@ -9,6 +10,8 @@ export const ProductCardSkeleton = () => (
     </div>
   </div>
 );
+
+// SECTION: Page skeleton — title bar + grid of product card placeholders
 export const PageSkeleton = () => (
   <div className="max-w-7xl mx-auto px-4 py-12 space-y-8">
     <div className="h-12 w-64 skeleton-luxury rounded-xl" />
@@ -17,4 +20,5 @@ export const PageSkeleton = () => (
     </div>
   </div>
 );
+
 export default ProductCardSkeleton;

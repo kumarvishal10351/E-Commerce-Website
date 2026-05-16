@@ -1,8 +1,14 @@
+/**
+ * SECTION: Review controller
+ * Product reviews: create (one per user), update, delete, and list by product.
+ */
+
 const Review = require('../models/Review');
 const Product = require('../models/Product');
 const asyncHandler = require('../middleware/asyncHandler');
 const ErrorResponse = require('../utils/ErrorResponse');
 
+// ─── Create review ───
 const createReview = asyncHandler(async (req, res, next) => {
   const { rating, title, comment } = req.body;
   const product = await Product.findById(req.params.productId);
@@ -13,6 +19,7 @@ const createReview = asyncHandler(async (req, res, next) => {
   res.status(201).json({ success: true, review });
 });
 
+// ─── Update & delete review ───
 const updateReview = asyncHandler(async (req, res, next) => {
   let review = await Review.findById(req.params.id);
   if (!review) return next(new ErrorResponse('Review not found', 404));
@@ -32,6 +39,7 @@ const deleteReview = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, message: 'Review deleted' });
 });
 
+// ─── List reviews for a product ───
 const getProductReviews = asyncHandler(async (req, res) => {
   const reviews = await Review.find({ product: req.params.productId }).populate('user', 'name avatar').sort('-createdAt');
   res.status(200).json({ success: true, count: reviews.length, reviews });

@@ -1,3 +1,4 @@
+// SECTION: Imports — routing, Redux UI/auth/cart, mega menu categories, scroll hide
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,6 +10,7 @@ import { useScrollDirection } from '../../hooks/useScrollDirection';
 import { CATEGORIES } from '../../data/products';
 
 const Header = () => {
+  // SECTION: Redux & local state — sidebar, search, mega menu, user dropdown
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { sidebarOpen, cartBounce } = useSelector((s) => s.ui);
@@ -22,6 +24,7 @@ const Header = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const menuRef = useRef(null);
 
+  // SECTION: Effects — reset cart bounce animation; close user menu on outside click
   useEffect(() => {
     if (cartBounce) {
       const t = setTimeout(() => dispatch(resetCartBounce()), 600);
@@ -35,16 +38,19 @@ const Header = () => {
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
+  // SECTION: Search handler — navigates to /search with query param
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
     setSearchQuery('');
   };
 
+  // SECTION: Scroll behavior — hide bar when scrolling down past threshold
   const hidden = direction === 'down' && isScrolled;
 
   return (
     <>
+      {/* SECTION: Main header — logo, desktop nav, search, cart/wishlist/auth */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${hidden ? '-translate-y-full' : 'translate-y-0'} ${isScrolled ? 'glass-card !rounded-none border-b border-white/10 backdrop-blur-xl bg-luxury-bg/80' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 md:h-20">
@@ -115,6 +121,7 @@ const Header = () => {
           </div>
         </div>
       </header>
+      {/* SECTION: Mobile sidebar — overlay + slide-in nav for small screens */}
       <AnimatePresence>
         {sidebarOpen && (
           <>
@@ -136,6 +143,7 @@ const Header = () => {
           </>
         )}
       </AnimatePresence>
+      {/* SECTION: Spacer — reserves height so content is not hidden under fixed header */}
       <div className="h-16 md:h-20" />
     </>
   );

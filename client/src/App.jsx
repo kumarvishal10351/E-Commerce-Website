@@ -1,3 +1,6 @@
+/** SECTION: Root component — defines all routes, layout chrome, and auth-gated pages */
+
+// ─── React, routing & animation ───
 import { useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
@@ -13,6 +16,7 @@ import PageTransition from './components/layout/PageTransition';
 import AdminLayout from './components/layout/AdminLayout';
 import { PageSkeleton } from './components/ui/Skeleton';
 
+// ─── Lazy-loaded pages (code-split per route for faster initial load) ───
 const Home = lazy(() => import('./pages/Home'));
 const Products = lazy(() => import('./pages/Products'));
 const ProductDetail = lazy(() => import('./pages/ProductDetail'));
@@ -37,11 +41,13 @@ const UsersList = lazy(() => import('./pages/admin/UsersList'));
 const CouponsList = lazy(() => import('./pages/admin/CouponsList'));
 const Categories = lazy(() => import('./pages/admin/Categories'));
 
+// ─── Route guard — redirects guests to /login ───
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useSelector((s) => s.auth);
   return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
+// ─── App shell: theme sync, session restore, layout + routes ───
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();

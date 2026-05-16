@@ -1,4 +1,10 @@
 /**
+ * SECTION: Query builder for list endpoints
+ * Chains search, filter, sort, field selection, and pagination on Mongoose queries.
+ */
+
+// ─── APIFeatures class ───
+/**
  * API Features class for search, filter, sort, and pagination.
  * Used with Mongoose queries to build powerful API endpoints.
  */
@@ -8,7 +14,7 @@ class APIFeatures {
     this.queryStr = queryStr;
   }
 
-  // Text search
+  // ─── search — keyword match on name, description, brand ───
   search() {
     if (this.queryStr.keyword) {
       const keyword = {
@@ -23,7 +29,7 @@ class APIFeatures {
     return this;
   }
 
-  // Filter by fields (price, rating, category, brand, etc.)
+  // ─── filter — query string fields ($gte, $lte, category, etc.) ───
   filter() {
     const queryCopy = { ...this.queryStr };
 
@@ -39,7 +45,7 @@ class APIFeatures {
     return this;
   }
 
-  // Sort results
+  // ─── sort — custom sort or default newest first ───
   sort() {
     if (this.queryStr.sort) {
       const sortBy = this.queryStr.sort.split(',').join(' ');
@@ -50,7 +56,7 @@ class APIFeatures {
     return this;
   }
 
-  // Select specific fields
+  // ─── limitFields — sparse field projection ───
   limitFields() {
     if (this.queryStr.fields) {
       const fields = this.queryStr.fields.split(',').join(' ');
@@ -59,7 +65,7 @@ class APIFeatures {
     return this;
   }
 
-  // Pagination
+  // ─── paginate — page/limit with skip ───
   paginate(resultPerPage) {
     const page = parseInt(this.queryStr.page, 10) || 1;
     const limit = parseInt(this.queryStr.limit, 10) || resultPerPage || 12;

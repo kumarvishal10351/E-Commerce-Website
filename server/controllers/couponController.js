@@ -1,7 +1,13 @@
+/**
+ * SECTION: Coupon controller
+ * Admin coupon management and checkout apply/validate endpoint.
+ */
+
 const Coupon = require('../models/Coupon');
 const asyncHandler = require('../middleware/asyncHandler');
 const ErrorResponse = require('../utils/ErrorResponse');
 
+// ─── Admin: CRUD coupons ───
 const createCoupon = asyncHandler(async (req, res) => {
   const coupon = await Coupon.create(req.body);
   res.status(201).json({ success: true, coupon });
@@ -12,6 +18,7 @@ const getCoupons = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, coupons });
 });
 
+// ─── Checkout: validate code and return discount ───
 const applyCoupon = asyncHandler(async (req, res, next) => {
   const { code, totalAmount } = req.body;
   const coupon = await Coupon.findOne({ code: code.toUpperCase() });

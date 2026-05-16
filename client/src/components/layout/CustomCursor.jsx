@@ -1,3 +1,4 @@
+// SECTION: Imports — custom ring cursor on desktop; disabled for reduced motion
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { prefersReducedMotion } from '../../utils/motion';
@@ -6,9 +7,11 @@ import { prefersReducedMotion } from '../../utils/motion';
  * Custom animated cursor — desktop only
  */
 const CustomCursor = () => {
+  // SECTION: State — cursor position and enlarged ring over interactive elements
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [hovering, setHovering] = useState(false);
 
+  // SECTION: Event listeners — track mouse; grow ring on links/buttons/inputs
   useEffect(() => {
     if (prefersReducedMotion() || window.innerWidth < 768) return;
     const move = (e) => setPos({ x: e.clientX, y: e.clientY });
@@ -26,8 +29,10 @@ const CustomCursor = () => {
     };
   }, []);
 
+  // SECTION: Early exit — no custom cursor on mobile or when user prefers reduced motion
   if (prefersReducedMotion() || typeof window !== 'undefined' && window.innerWidth < 768) return null;
 
+  // SECTION: Render — spring-follow ring with blend mode for contrast
   return (
     <motion.div
       className="fixed top-0 left-0 z-[9999] pointer-events-none mix-blend-difference hidden md:block"

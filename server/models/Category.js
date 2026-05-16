@@ -1,5 +1,11 @@
+/**
+ * SECTION: Category model
+ * Product taxonomy with optional parent/child hierarchy and URL-friendly slugs.
+ */
+
 const mongoose = require('mongoose');
 
+// ─── Category schema ───
 const categorySchema = new mongoose.Schema(
   {
     name: {
@@ -38,6 +44,7 @@ const categorySchema = new mongoose.Schema(
   }
 );
 
+// ─── Hooks & virtuals ───
 // Auto-generate slug from name
 categorySchema.pre('save', function (next) {
   if (this.isModified('name')) {

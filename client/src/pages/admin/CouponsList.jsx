@@ -4,19 +4,23 @@ import { getCouponsAPI, createCouponAPI, deleteCouponAPI } from '../../store/api
 import toast from 'react-hot-toast';
 
 const CouponsList = () => {
+  // SECTION: State
   const [coupons, setCoupons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ code: '', discountType: 'percent', discountValue: '', minPurchase: '', maxDiscount: '', expiryDate: '', usageLimit: '' });
 
+  // SECTION: Data fetching
   const fetch = async () => {
     try { const res = await getCouponsAPI(); setCoupons(res.data.coupons); }
     catch (e) { console.error(e); }
     finally { setLoading(false); }
   };
 
+  // SECTION: Effects
   useEffect(() => { fetch(); }, []);
 
+  // SECTION: Handlers
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
@@ -33,13 +37,16 @@ const CouponsList = () => {
     catch (e) { toast.error('Failed'); }
   };
 
+  // SECTION: JSX
   return (
     <div className="space-y-6">
+      {/* Header & create form toggle */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Coupons</h1>
         <button onClick={() => setShowForm(!showForm)} className="btn-primary text-sm !px-4 !py-2 flex items-center gap-2"><HiOutlinePlus className="w-4 h-4" />{showForm ? 'Cancel' : 'Add Coupon'}</button>
       </div>
 
+      {/* Create coupon form */}
       {showForm && (
         <div className="card p-6">
           <form onSubmit={handleCreate} className="grid md:grid-cols-2 gap-4">

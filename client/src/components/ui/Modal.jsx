@@ -1,3 +1,4 @@
+// SECTION: Imports — AnimatePresence mounts/unmounts overlay and panel with exit animations
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
@@ -7,6 +8,7 @@ const Modal = ({ open, onClose, children, title }) => (
   <AnimatePresence>
     {open && (
       <>
+        {/* SECTION: Backdrop — dimmed blur layer; click closes modal */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -14,6 +16,7 @@ const Modal = ({ open, onClose, children, title }) => (
           onClick={onClose}
           className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100]"
         />
+        {/* SECTION: Panel — centered glass card with optional title and body */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}

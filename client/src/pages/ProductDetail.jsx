@@ -12,10 +12,13 @@ import { getProductAPI, getRelatedProductsAPI, getProductReviewsAPI, createRevie
 import toast from 'react-hot-toast';
 
 const ProductDetail = () => {
+  // SECTION: Router & Redux
   const { id } = useParams();
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector(s => s.auth);
   const { items: wishlistItems } = useSelector(s => s.wishlist);
+
+  // SECTION: State
   const [product, setProduct] = useState(null);
   const [related, setRelated] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -26,6 +29,7 @@ const ProductDetail = () => {
   const [submitting, setSubmitting] = useState(false);
   const isWishlisted = wishlistItems.some(i => i.product === id);
 
+  // SECTION: Effects
   useEffect(() => {
     const fetch = async () => {
       setLoading(true);
@@ -38,6 +42,7 @@ const ProductDetail = () => {
     fetch(); setSelectedImage(0); setQuantity(1);
   }, [id]);
 
+  // SECTION: Handlers
   const handleAddToCart = () => {
     if (!product || product.stock < 1) return toast.error('Out of stock');
     dispatch(addToCart({ product: product._id, name: product.name, price: product.price, image: product.images?.[0]?.url || '', stock: product.stock, quantity }));
@@ -58,6 +63,7 @@ const ProductDetail = () => {
     finally { setSubmitting(false); }
   };
 
+  // SECTION: JSX — loading
   if (loading) return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="grid md:grid-cols-2 gap-12"><Skeleton variant="image" className="aspect-square rounded-2xl" /><div className="space-y-4"><Skeleton className="h-8 w-3/4" /><Skeleton className="h-4 w-1/4" /><Skeleton className="h-10 w-1/3" /><Skeleton className="h-20 w-full" /><Skeleton variant="button" className="!w-full !h-14" /></div></div>
@@ -66,8 +72,10 @@ const ProductDetail = () => {
 
   if (!product) return <div className="text-center py-20"><h2 className="text-2xl font-bold">Product not found</h2><Link to="/products" className="btn-primary mt-4 inline-block">Browse Products</Link></div>;
 
+  // SECTION: Derived
   const discount = product.comparePrice > product.price ? Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100) : 0;
 
+  // SECTION: JSX
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
       {/* Breadcrumb */}

@@ -1,7 +1,14 @@
+/**
+ * SECTION: Product controller
+ * Catalog listing, search/filter, featured/top products, and admin CRUD.
+ */
+
 const Product = require('../models/Product');
 const asyncHandler = require('../middleware/asyncHandler');
 const ErrorResponse = require('../utils/ErrorResponse');
 const APIFeatures = require('../utils/apiFeatures');
+
+// ─── List & single product ───
 
 /**
  * @desc    Get all products with search, filter, sort, pagination
@@ -55,6 +62,8 @@ const getProduct = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, product });
 });
+
+// ─── Discovery helpers (top, featured, category, related, brands) ───
 
 /**
  * @desc    Get top rated products
@@ -142,6 +151,8 @@ const getRelatedProducts = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, products: related });
 });
+
+// ─── Admin CRUD ───
 
 /**
  * @desc    Create new product

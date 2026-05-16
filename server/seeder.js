@@ -1,3 +1,10 @@
+/**
+ * SECTION: Database seeder
+ * Populates (or clears) sample users, categories, products, and coupons.
+ * Run: node seeder.js  |  Destroy: node seeder.js -d
+ */
+
+// ─── Dependencies & seed data ───
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const User = require('./models/User');
@@ -13,6 +20,7 @@ const productsData = require('./data/products.json');
 dotenv.config({ path: '../.env' });
 if (!process.env.MONGO_URI) dotenv.config();
 
+// ─── seedDB — wipe collections and insert demo data ───
 const seedDB = async () => {
   try {
     await connectDB();
@@ -54,7 +62,7 @@ const seedDB = async () => {
   }
 };
 
-// Destroy data
+// ─── CLI: destroy mode (-d) or seed ───
 if (process.argv[2] === '-d') {
   const destroyDB = async () => {
     await connectDB();

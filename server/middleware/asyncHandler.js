@@ -1,4 +1,10 @@
 /**
+ * SECTION: Async route wrapper
+ * Forwards rejected promises from async controllers to the error handler.
+ */
+
+// ─── asyncHandler — wrap (req, res, next) async functions ───
+/**
  * Async handler wrapper to eliminate try-catch blocks in controllers.
  * Wraps async functions and passes errors to Express error handler.
  */

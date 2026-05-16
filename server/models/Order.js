@@ -1,5 +1,11 @@
+/**
+ * SECTION: Order model
+ * Checkout snapshot: line items, shipping, payment, totals, and fulfillment status.
+ */
+
 const mongoose = require('mongoose');
 
+// ─── Order line item sub-schema (denormalized product info) ───
 const orderItemSchema = new mongoose.Schema({
   product: {
     type: mongoose.Schema.Types.ObjectId,
@@ -12,6 +18,7 @@ const orderItemSchema = new mongoose.Schema({
   quantity: { type: Number, required: true, min: 1 },
 });
 
+// ─── Order schema ───
 const orderSchema = new mongoose.Schema(
   {
     user: {
@@ -75,6 +82,7 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// ─── Indexes ───
 orderSchema.index({ user: 1, createdAt: -1 });
 orderSchema.index({ orderStatus: 1 });
 

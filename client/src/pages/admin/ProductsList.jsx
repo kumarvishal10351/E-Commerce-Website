@@ -7,12 +7,14 @@ import { getProductsAPI, deleteProductAPI } from '../../store/api';
 import toast from 'react-hot-toast';
 
 const ProductsList = () => {
+  // SECTION: State
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  // SECTION: Data fetching
   const fetchProducts = async () => {
     setLoading(true);
     try {
@@ -25,16 +27,20 @@ const ProductsList = () => {
     finally { setLoading(false); }
   };
 
+  // SECTION: Effects
   useEffect(() => { fetchProducts(); }, [page, search]);
 
+  // SECTION: Handlers
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this product?')) return;
     try { await deleteProductAPI(id); toast.success('Product deleted'); fetchProducts(); }
     catch (err) { toast.error('Failed to delete'); }
   };
 
+  // SECTION: JSX
   return (
     <div className="space-y-6">
+      {/* Header & search */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-bold">Products</h1>
         <Link to="/admin/products/new" className="btn-primary text-sm !px-4 !py-2 flex items-center gap-2"><HiOutlinePlus className="w-4 h-4" /> Add Product</Link>

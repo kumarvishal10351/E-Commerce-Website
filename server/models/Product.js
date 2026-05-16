@@ -1,5 +1,11 @@
+/**
+ * SECTION: Product model
+ * Catalog items: pricing, images, stock, ratings, and category link.
+ */
+
 const mongoose = require('mongoose');
 
+// ─── Product schema ───
 const productSchema = new mongoose.Schema(
   {
     name: {
@@ -82,6 +88,7 @@ const productSchema = new mongoose.Schema(
   }
 );
 
+// ─── Virtuals & indexes ───
 // Virtual for reviews
 productSchema.virtual('reviews', {
   ref: 'Review',

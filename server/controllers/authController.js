@@ -1,3 +1,8 @@
+/**
+ * SECTION: Auth controller
+ * Registration, login, profile, addresses, password reset, and wishlist.
+ */
+
 const crypto = require('crypto');
 const User = require('../models/User');
 const asyncHandler = require('../middleware/asyncHandler');
@@ -5,6 +10,8 @@ const ErrorResponse = require('../utils/ErrorResponse');
 const sendTokenResponse = require('../utils/generateToken');
 const sendEmail = require('../utils/sendEmail');
 const { welcomeEmail, resetPasswordEmail } = require('../utils/emailTemplates');
+
+// ─── Register & login ───
 
 /**
  * @desc    Register a new user
@@ -62,6 +69,8 @@ const login = asyncHandler(async (req, res, next) => {
   sendTokenResponse(user, 200, res);
 });
 
+// ─── Session & profile ───
+
 /**
  * @desc    Logout user / clear cookie
  * @route   POST /api/auth/logout
@@ -108,6 +117,8 @@ const updateProfile = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, user });
 });
+
+// ─── Password & addresses ───
 
 /**
  * @desc    Update password
@@ -168,6 +179,8 @@ const deleteAddress = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, addresses: user.addresses });
 });
 
+// ─── Password reset (email flow) ───
+
 /**
  * @desc    Forgot password — send reset email
  * @route   POST /api/auth/forgot-password
@@ -225,6 +238,8 @@ const resetPassword = asyncHandler(async (req, res, next) => {
 
   sendTokenResponse(user, 200, res);
 });
+
+// ─── Wishlist ───
 
 /**
  * @desc    Toggle product in wishlist

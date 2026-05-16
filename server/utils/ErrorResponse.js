@@ -1,4 +1,10 @@
 /**
+ * SECTION: Custom operational error class
+ * Carries an HTTP statusCode so controllers can call next(new ErrorResponse(...)).
+ */
+
+// ─── ErrorResponse — extends native Error ───
+/**
  * Custom error response class for operational errors.
  * Extends native Error to include statusCode for HTTP responses.
  */

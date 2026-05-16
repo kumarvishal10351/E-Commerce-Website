@@ -4,20 +4,24 @@ import { getAllCategoriesAPI, createCategoryAPI, updateCategoryAPI, deleteCatego
 import toast from 'react-hot-toast';
 
 const Categories = () => {
+  // SECTION: State
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editId, setEditId] = useState(null);
   const [form, setForm] = useState({ name: '', description: '' });
 
+  // SECTION: Data fetching
   const fetch = async () => {
     try { const res = await getAllCategoriesAPI(); setCategories(res.data.categories); }
     catch (e) { console.error(e); }
     finally { setLoading(false); }
   };
 
+  // SECTION: Effects
   useEffect(() => { fetch(); }, []);
 
+  // SECTION: Handlers
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -36,6 +40,7 @@ const Categories = () => {
     catch (e) { toast.error('Failed'); }
   };
 
+  // SECTION: JSX
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -45,6 +50,7 @@ const Categories = () => {
         </button>
       </div>
 
+      {/* Create / edit form */}
       {showForm && (
         <div className="card p-6">
           <form onSubmit={handleSubmit} className="flex flex-wrap gap-4 items-end">
@@ -55,6 +61,7 @@ const Categories = () => {
         </div>
       )}
 
+      {/* Category cards */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {categories.map(cat => (
           <div key={cat._id} className="card p-5 flex items-center justify-between">

@@ -1,6 +1,12 @@
+/**
+ * SECTION: Request validation (express-validator)
+ * Reusable validation chains for auth, products, reviews, and coupons.
+ */
+
 const { body, validationResult } = require('express-validator');
 const ErrorResponse = require('../utils/ErrorResponse');
 
+// ─── handleValidation — collect errors and pass to next() ───
 /**
  * Middleware to check validation results.
  * Must be placed after express-validator checks.
@@ -14,7 +20,7 @@ const handleValidation = (req, res, next) => {
   next();
 };
 
-// Validation chains for registration
+// ─── Auth validation chains ───
 const validateRegister = [
   body('name').trim().notEmpty().withMessage('Name is required').isLength({ max: 50 }).withMessage('Name cannot exceed 50 characters'),
   body('email').isEmail().withMessage('Please provide a valid email').normalizeEmail(),
@@ -22,14 +28,13 @@ const validateRegister = [
   handleValidation,
 ];
 
-// Validation chains for login
 const validateLogin = [
   body('email').isEmail().withMessage('Please provide a valid email').normalizeEmail(),
   body('password').notEmpty().withMessage('Password is required'),
   handleValidation,
 ];
 
-// Validation chains for product creation
+// ─── Product validation chain ───
 const validateProduct = [
   body('name').trim().notEmpty().withMessage('Product name is required'),
   body('description').trim().notEmpty().withMessage('Product description is required'),
@@ -40,14 +45,14 @@ const validateProduct = [
   handleValidation,
 ];
 
-// Validation chains for review
+// ─── Review validation chain ───
 const validateReview = [
   body('rating').isInt({ min: 1, max: 5 }).withMessage('Rating must be between 1 and 5'),
   body('comment').trim().notEmpty().withMessage('Review comment is required'),
   handleValidation,
 ];
 
-// Validation chains for coupon
+// ─── Coupon validation chain ───
 const validateCoupon = [
   body('code').trim().notEmpty().withMessage('Coupon code is required'),
   body('discountType').isIn(['percent', 'fixed']).withMessage('Discount type must be percent or fixed'),

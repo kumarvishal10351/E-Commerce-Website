@@ -1,7 +1,13 @@
+/**
+ * SECTION: Upload controller (Cloudinary)
+ * Admin image upload and deletion for product/category assets.
+ */
+
 const { cloudinary } = require('../config/cloudinary');
 const asyncHandler = require('../middleware/asyncHandler');
 const ErrorResponse = require('../utils/ErrorResponse');
 
+// ─── Single image upload ───
 const uploadImage = asyncHandler(async (req, res, next) => {
   if (!req.file) return next(new ErrorResponse('Please upload a file', 400));
   const b64 = Buffer.from(req.file.buffer).toString('base64');
@@ -10,6 +16,7 @@ const uploadImage = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, image: { public_id: result.public_id, url: result.secure_url } });
 });
 
+// ─── Batch image upload ───
 const uploadImages = asyncHandler(async (req, res, next) => {
   if (!req.files || req.files.length === 0) return next(new ErrorResponse('Please upload files', 400));
   const images = [];
@@ -22,6 +29,7 @@ const uploadImages = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, images });
 });
 
+// ─── Delete image from Cloudinary ───
 const deleteImage = asyncHandler(async (req, res, next) => {
   const { public_id } = req.body;
   if (!public_id) return next(new ErrorResponse('Please provide image public_id', 400));

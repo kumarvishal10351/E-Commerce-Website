@@ -8,12 +8,16 @@ import toast from 'react-hot-toast';
 import { useState } from 'react';
 
 const Cart = () => {
+  // SECTION: Redux
   const dispatch = useDispatch();
   const { items, itemsPrice, shippingPrice, taxPrice, totalPrice, discount, couponCode } = useSelector(s => s.cart);
   const { isAuthenticated } = useSelector(s => s.auth);
+
+  // SECTION: State
   const [coupon, setCoupon] = useState('');
   const [applying, setApplying] = useState(false);
 
+  // SECTION: Handlers
   const handleApplyCoupon = async () => {
     if (!coupon.trim()) return;
     setApplying(true);
@@ -26,6 +30,7 @@ const Cart = () => {
     finally { setApplying(false); }
   };
 
+  // SECTION: JSX — empty cart
   if (items.length === 0) return (
     <div className="max-w-7xl mx-auto px-4 py-20 text-center">
       <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
@@ -37,8 +42,10 @@ const Cart = () => {
     </div>
   );
 
+  // SECTION: JSX
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-2xl md:text-3xl font-bold">Shopping Cart ({items.length})</h1>
         <button onClick={() => { dispatch(clearCart()); toast.success('Cart cleared'); }} className="text-sm text-red-500 hover:text-red-600 font-medium">Clear Cart</button>

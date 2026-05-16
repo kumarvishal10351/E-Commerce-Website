@@ -8,12 +8,14 @@ const statusColors = { Processing: 'badge-warning', Confirmed: 'badge-info', Shi
 const statuses = ['Processing', 'Confirmed', 'Shipped', 'Out for Delivery', 'Delivered', 'Cancelled'];
 
 const OrdersList = () => {
+  // SECTION: State
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [filter, setFilter] = useState('');
 
+  // SECTION: Data fetching
   const fetchOrders = async () => {
     setLoading(true);
     try {
@@ -26,15 +28,19 @@ const OrdersList = () => {
     finally { setLoading(false); }
   };
 
+  // SECTION: Effects
   useEffect(() => { fetchOrders(); }, [page, filter]);
 
+  // SECTION: Handlers
   const handleStatusChange = async (id, status) => {
     try { await updateOrderStatusAPI(id, { status }); toast.success('Status updated'); fetchOrders(); }
     catch (err) { toast.error(err.response?.data?.message || 'Failed'); }
   };
 
+  // SECTION: JSX
   return (
     <div className="space-y-6">
+      {/* Header & status filters */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-bold">Orders</h1>
         <div className="flex gap-2 overflow-x-auto">

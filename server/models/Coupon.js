@@ -1,5 +1,11 @@
+/**
+ * SECTION: Coupon model
+ * Discount codes with expiry, usage limits, and percent/fixed calculation helpers.
+ */
+
 const mongoose = require('mongoose');
 
+// ─── Coupon schema ───
 const couponSchema = new mongoose.Schema(
   {
     code: {
@@ -47,6 +53,7 @@ const couponSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// ─── Instance methods ───
 // Check if coupon is valid
 couponSchema.methods.isValid = function () {
   if (!this.isActive) return { valid: false, message: 'Coupon is not active' };

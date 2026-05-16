@@ -1,8 +1,14 @@
+/**
+ * SECTION: Payment controller (Stripe)
+ * PaymentIntent for client checkout and webhook to confirm orders.
+ */
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const asyncHandler = require('../middleware/asyncHandler');
 const ErrorResponse = require('../utils/ErrorResponse');
 const Order = require('../models/Order');
 
+// ─── createPaymentIntent — client secret for Stripe Elements ───
 const createPaymentIntent = asyncHandler(async (req, res, next) => {
   const { amount } = req.body;
   if (!amount || amount <= 0) return next(new ErrorResponse('Invalid payment amount', 400));
@@ -14,6 +20,7 @@ const createPaymentIntent = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, clientSecret: paymentIntent.client_secret });
 });
 
+// ─── handleWebhook — verify signature & update order on success ───
 const handleWebhook = asyncHandler(async (req, res) => {
   const sig = req.headers['stripe-signature'];
   let event;

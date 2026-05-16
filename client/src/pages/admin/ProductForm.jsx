@@ -6,14 +6,18 @@ import { getProductAPI, createProductAPI, updateProductAPI, getCategoriesAPI, up
 import toast from 'react-hot-toast';
 
 const ProductForm = () => {
+  // SECTION: Router
   const { id } = useParams();
   const navigate = useNavigate();
   const isEdit = !!id;
+
+  // SECTION: State
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [form, setForm] = useState({ name: '', description: '', price: '', comparePrice: '', brand: '', stock: '', category: '', isFeatured: false, tags: '', images: [] });
   const [uploading, setUploading] = useState(false);
 
+  // SECTION: Effects
   useEffect(() => {
     const fetch = async () => {
       const catRes = await getCategoriesAPI();
@@ -27,6 +31,7 @@ const ProductForm = () => {
     fetch();
   }, [id, isEdit]);
 
+  // SECTION: Handlers
   const handleImageUpload = async (e) => {
     const files = e.target.files;
     if (!files.length) return;
@@ -55,6 +60,7 @@ const ProductForm = () => {
     finally { setLoading(false); }
   };
 
+  // SECTION: JSX
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <h1 className="text-2xl font-bold mb-6">{isEdit ? 'Edit Product' : 'Add New Product'}</h1>

@@ -1,7 +1,11 @@
+/** SECTION: Cart slice — line items, pricing totals, coupons, and shipping address */
+
 import { createSlice } from '@reduxjs/toolkit';
 
+// ─── Restore cart from localStorage ───
 const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
+// ─── Derive subtotal, tax, shipping, and item count from line items ───
 const calculateTotals = (items) => {
   const itemsPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const shippingPrice = itemsPrice > 999 || itemsPrice === 0 ? 0 : 99;
@@ -10,6 +14,7 @@ const calculateTotals = (items) => {
   return { itemsPrice: Number(itemsPrice.toFixed(2)), shippingPrice, taxPrice, totalPrice, totalItems: items.reduce((acc, item) => acc + item.quantity, 0) };
 };
 
+// ─── Slice: cart items + checkout fields, persisted to localStorage ───
 const cartSlice = createSlice({
   name: 'cart',
   initialState: { items: cartItems, ...calculateTotals(cartItems), discount: 0, couponCode: '', shippingAddress: JSON.parse(localStorage.getItem('shippingAddress')) || null },

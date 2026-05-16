@@ -6,12 +6,16 @@ import { resetPasswordAPI } from '../store/api';
 import toast from 'react-hot-toast';
 
 const ResetPassword = () => {
+  // SECTION: Router
   const { token } = useParams();
   const navigate = useNavigate();
+
+  // SECTION: State
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // SECTION: Handlers
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirm) return toast.error('Passwords do not match');
@@ -21,6 +25,7 @@ const ResetPassword = () => {
     finally { setLoading(false); }
   };
 
+  // SECTION: JSX
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">

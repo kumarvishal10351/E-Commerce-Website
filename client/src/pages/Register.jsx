@@ -7,15 +7,20 @@ import { register, clearError } from '../store/slices/authSlice';
 import toast from 'react-hot-toast';
 
 const Register = () => {
+  // SECTION: Redux & router
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuthenticated, loading, error } = useSelector(s => s.auth);
+
+  // SECTION: State
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [showPassword, setShowPassword] = useState(false);
 
+  // SECTION: Effects
   useEffect(() => { if (isAuthenticated) navigate('/'); }, [isAuthenticated, navigate]);
   useEffect(() => { if (error) { toast.error(error); dispatch(clearError()); } }, [error, dispatch]);
 
+  // SECTION: Handlers
   const handleSubmit = (e) => {
     e.preventDefault();
     if (form.password !== form.confirmPassword) return toast.error('Passwords do not match');
@@ -23,6 +28,7 @@ const Register = () => {
     dispatch(register({ name: form.name, email: form.email, password: form.password }));
   };
 
+  // SECTION: JSX
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">

@@ -5,11 +5,13 @@ import { getAllUsersAPI, updateUserRoleAPI, toggleBlockUserAPI } from '../../sto
 import toast from 'react-hot-toast';
 
 const UsersList = () => {
+  // SECTION: State
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  // SECTION: Data fetching
   const fetchUsers = async () => {
     setLoading(true);
     try { const res = await getAllUsersAPI({ page, limit: 15 }); setUsers(res.data.users); setTotalPages(res.data.totalPages); }
@@ -17,8 +19,10 @@ const UsersList = () => {
     finally { setLoading(false); }
   };
 
+  // SECTION: Effects
   useEffect(() => { fetchUsers(); }, [page]);
 
+  // SECTION: Handlers
   const handleRoleChange = async (id, role) => {
     try { await updateUserRoleAPI(id, { role }); toast.success('Role updated'); fetchUsers(); }
     catch (err) { toast.error('Failed'); }
@@ -29,6 +33,7 @@ const UsersList = () => {
     catch (err) { toast.error('Failed'); }
   };
 
+  // SECTION: JSX
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Users</h1>

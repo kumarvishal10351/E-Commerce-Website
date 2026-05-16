@@ -8,9 +8,11 @@ import { getMyOrdersAPI } from '../store/api';
 const statusColors = { Processing: 'badge-warning', Confirmed: 'badge-info', Shipped: 'badge-info', 'Out for Delivery': 'badge-info', Delivered: 'badge-success', Cancelled: 'badge-error', Refunded: 'badge-error' };
 
 const MyOrders = () => {
+  // SECTION: State
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // SECTION: Effects
   useEffect(() => {
     const fetch = async () => {
       try { const res = await getMyOrdersAPI(); setOrders(res.data.orders); }
@@ -20,8 +22,10 @@ const MyOrders = () => {
     fetch();
   }, []);
 
+  // SECTION: JSX — loading
   if (loading) return <div className="max-w-4xl mx-auto px-4 py-8 space-y-4">{Array.from({length: 3}).map((_, i) => <Skeleton key={i} className="h-32 w-full rounded-2xl" />)}</div>;
 
+  // SECTION: JSX — empty
   if (orders.length === 0) return (
     <div className="max-w-4xl mx-auto px-4 py-20 text-center">
       <HiOutlineClipboardList className="w-24 h-24 mx-auto text-gray-300 dark:text-gray-600 mb-6" />
@@ -31,6 +35,7 @@ const MyOrders = () => {
     </div>
   );
 
+  // SECTION: JSX
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
       <h1 className="text-2xl md:text-3xl font-bold mb-8">My Orders</h1>

@@ -4,10 +4,13 @@ import { motion } from 'framer-motion';
 import { HiOutlineCheckCircle, HiOutlineClipboardList } from 'react-icons/hi';
 
 const OrderSuccess = () => {
+  // SECTION: Router
   const { id } = useParams();
 
+  // SECTION: Effects
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
+  // SECTION: JSX
   return (
     <div className="max-w-lg mx-auto px-4 py-20 text-center">
       <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', damping: 15 }}>

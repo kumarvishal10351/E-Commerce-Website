@@ -7,15 +7,19 @@ import { login, clearError } from '../store/slices/authSlice';
 import toast from 'react-hot-toast';
 
 const Login = () => {
+  // SECTION: Redux & router
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const redirect = searchParams.get('redirect') || '';
   const { isAuthenticated, loading, error } = useSelector(s => s.auth);
+
+  // SECTION: State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  // SECTION: Effects
   useEffect(() => {
     if (isAuthenticated) navigate(redirect ? `/${redirect}` : '/');
   }, [isAuthenticated, navigate, redirect]);
@@ -24,11 +28,13 @@ const Login = () => {
     if (error) { toast.error(error); dispatch(clearError()); }
   }, [error, dispatch]);
 
+  // SECTION: Handlers
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login({ email, password }));
   };
 
+  // SECTION: JSX
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
@@ -41,6 +47,7 @@ const Login = () => {
           <p className="text-[var(--color-text-secondary)] mt-1">Sign in to your account</p>
         </div>
 
+        {/* Login form */}
         <div className="card p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>

@@ -1,3 +1,6 @@
+/** SECTION: Application entry point — mounts React into #root and wraps the app with global providers */
+
+// ─── Dependencies & app shell ───
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -10,8 +13,10 @@ import CustomCursor from './components/layout/CustomCursor';
 import { PageSkeleton } from './components/ui/Skeleton';
 import './index.css';
 
+// ─── Global UI defaults ───
 document.documentElement.classList.add('dark');
 
+// ─── Render tree (outer → inner: Redux → Router → scroll → app) ───
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>

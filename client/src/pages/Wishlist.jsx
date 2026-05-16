@@ -7,9 +7,11 @@ import { addToCart } from '../store/slices/cartSlice';
 import toast from 'react-hot-toast';
 
 const Wishlist = () => {
+  // SECTION: Redux
   const dispatch = useDispatch();
   const { items } = useSelector(s => s.wishlist);
 
+  // SECTION: JSX — empty wishlist
   if (items.length === 0) return (
     <div className="max-w-7xl mx-auto px-4 py-20 text-center">
       <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
@@ -21,6 +23,7 @@ const Wishlist = () => {
     </div>
   );
 
+  // SECTION: JSX
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
       <h1 className="text-2xl md:text-3xl font-bold mb-8">My Wishlist ({items.length})</h1>

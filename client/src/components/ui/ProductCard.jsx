@@ -1,3 +1,4 @@
+// SECTION: Imports — cart/wishlist Redux, scroll-in animation, pricing helpers
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,10 +18,12 @@ import { prefersReducedMotion } from '../../utils/motion';
 
 /** Premium product card with dual-image hover swap */
 const ProductCard = ({ product, index = 0 }) => {
+  // SECTION: Hooks & Redux — hover state, scroll reveal, wishlist membership
   const dispatch = useDispatch();
   const [hovered, setHovered] = useState(false);
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
   const { items: wishlistItems } = useSelector((s) => s.wishlist);
+  // SECTION: Derived product data — id, images, discount %, stock badge label
   const id = product._id || product.id;
   const isWishlisted = wishlistItems.some((i) => i.product === id);
   const price = product.price;
@@ -30,6 +33,7 @@ const ProductCard = ({ product, index = 0 }) => {
   const img1 = product.images?.[0]?.url || product.image;
   const img2 = product.images?.[1]?.url || product.imageHover || img1;
 
+  // SECTION: Handlers — add to cart (opens drawer) and toggle wishlist; stop link navigation
   const handleAddToCart = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -49,6 +53,7 @@ const ProductCard = ({ product, index = 0 }) => {
 
   const stockVariant = stockBadge.type === 'warning' ? 'warning' : stockBadge.type === 'danger' ? 'discount' : 'stock';
 
+  // SECTION: Render — linked card with image swap, badges, quick actions, price
   return (
     <motion.article
       ref={ref}
@@ -62,6 +67,7 @@ const ProductCard = ({ product, index = 0 }) => {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
+        {/* SECTION: Image area — dual hover swap, discount/stock badges, wishlist + cart CTA */}
         <figure className="relative aspect-square overflow-hidden bg-luxury-surface m-0">
           <img src={img1} alt={product.name} loading="lazy" className={`img-zoom absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hovered ? 'opacity-0' : 'opacity-100'}`} />
           <img src={img2} alt="" loading="lazy" aria-hidden className={`img-zoom absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hovered ? 'opacity-100' : 'opacity-0'}`} />
@@ -76,6 +82,7 @@ const ProductCard = ({ product, index = 0 }) => {
             </button>
           </motion.div>
         </figure>
+        {/* SECTION: Product info — brand, title, rating, animated price */}
         <section className="p-4">
           <p className="text-xs font-accent text-luxury-gold tracking-wider uppercase mb-1">{product.brand}</p>
           <h3 className="font-medium text-sm line-clamp-2 mb-2 group-hover:text-luxury-glow transition-colors">{product.name}</h3>

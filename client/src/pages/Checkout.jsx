@@ -10,14 +10,18 @@ import toast from 'react-hot-toast';
 const steps = ['Shipping', 'Payment', 'Review'];
 
 const Checkout = () => {
+  // SECTION: Redux & router
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { items, itemsPrice, shippingPrice, taxPrice, totalPrice, discount, couponCode, shippingAddress: savedAddr } = useSelector(s => s.cart);
   const { user } = useSelector(s => s.auth);
+
+  // SECTION: State
   const [step, setStep] = useState(0);
   const [processing, setProcessing] = useState(false);
   const [address, setAddress] = useState(savedAddr || { fullName: user?.name || '', phone: '', addressLine1: '', addressLine2: '', city: '', state: '', postalCode: '', country: 'US' });
 
+  // SECTION: Handlers
   const handleAddressSubmit = (e) => {
     e.preventDefault();
     dispatch(setShippingAddress(address));
@@ -43,6 +47,7 @@ const Checkout = () => {
     } finally { setProcessing(false); }
   };
 
+  // SECTION: Step indicator helper
   const StepIcon = ({ idx }) => {
     const icons = [HiOutlineLocationMarker, HiOutlineCreditCard, HiOutlineClipboardCheck];
     const Icon = icons[idx];
@@ -53,9 +58,10 @@ const Checkout = () => {
     );
   };
 
+  // SECTION: JSX
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-      {/* Steps */}
+      {/* Step progress */}
       <div className="flex items-center justify-center mb-12">
         {steps.map((s, i) => (
           <div key={s} className="flex items-center">
@@ -69,6 +75,7 @@ const Checkout = () => {
       </div>
 
       <div className="grid md:grid-cols-3 gap-8">
+        {/* Checkout steps */}
         <div className="md:col-span-2">
           {/* Step 0: Shipping */}
           {step === 0 && (

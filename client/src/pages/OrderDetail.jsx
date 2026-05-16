@@ -9,10 +9,12 @@ const statusSteps = ['Processing', 'Confirmed', 'Shipped', 'Out for Delivery', '
 const stepIcons = [HiOutlineClipboardCheck, HiCheck, HiOutlineCube, HiOutlineTruck, HiOutlineHome];
 
 const OrderDetail = () => {
+  // SECTION: Router & state
   const { id } = useParams();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // SECTION: Effects
   useEffect(() => {
     const fetch = async () => {
       try { const res = await getOrderAPI(id); setOrder(res.data.order); }
@@ -22,12 +24,15 @@ const OrderDetail = () => {
     fetch();
   }, [id]);
 
+  // SECTION: JSX — loading
   if (loading) return <div className="max-w-4xl mx-auto px-4 py-8 space-y-4"><Skeleton className="h-8 w-64" /><Skeleton className="h-48 w-full rounded-2xl" /><Skeleton className="h-64 w-full rounded-2xl" /></div>;
   if (!order) return <div className="text-center py-20"><h2 className="text-2xl font-bold">Order not found</h2></div>;
 
+  // SECTION: Derived
   const currentStep = statusSteps.indexOf(order.orderStatus);
   const isCancelled = order.orderStatus === 'Cancelled' || order.orderStatus === 'Refunded';
 
+  // SECTION: JSX
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
       <div className="flex items-center justify-between mb-8">

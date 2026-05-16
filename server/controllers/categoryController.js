@@ -1,7 +1,13 @@
+/**
+ * SECTION: Category controller
+ * Storefront category tree and admin category management.
+ */
+
 const Category = require('../models/Category');
 const asyncHandler = require('../middleware/asyncHandler');
 const ErrorResponse = require('../utils/ErrorResponse');
 
+// ─── Public: active root categories & by slug ───
 const getCategories = asyncHandler(async (req, res) => {
   const categories = await Category.find({ parent: null, isActive: true }).populate('subcategories');
   res.status(200).json({ success: true, categories });
@@ -18,6 +24,7 @@ const getCategory = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, category });
 });
 
+// ─── Admin: create, update, delete ───
 const createCategory = asyncHandler(async (req, res) => {
   const category = await Category.create(req.body);
   res.status(201).json({ success: true, category });

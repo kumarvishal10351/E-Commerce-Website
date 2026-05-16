@@ -1,5 +1,11 @@
+/**
+ * SECTION: Global error handler
+ * Central place for formatting API errors (Mongoose, JWT, and custom).
+ */
+
 const ErrorResponse = require('../utils/ErrorResponse');
 
+// ─── errorHandler — Express 4-arg middleware ───
 /**
  * Global error handling middleware.
  * Handles Mongoose errors, JWT errors, and operational errors.
@@ -13,6 +19,7 @@ const errorHandler = (err, req, res, next) => {
     console.error('Error:', err);
   }
 
+  // ─── Mongoose error mappings ───
   // Mongoose bad ObjectId
   if (err.name === 'CastError') {
     error = new ErrorResponse('Resource not found', 404);
@@ -30,7 +37,7 @@ const errorHandler = (err, req, res, next) => {
     error = new ErrorResponse(messages.join('. '), 400);
   }
 
-  // JWT errors
+  // ─── JWT error mappings ───
   if (err.name === 'JsonWebTokenError') {
     error = new ErrorResponse('Invalid token. Please log in again.', 401);
   }

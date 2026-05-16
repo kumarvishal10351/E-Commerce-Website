@@ -7,8 +7,11 @@ import { updatePasswordAPI, updateAddressAPI, deleteAddressAPI } from '../store/
 import toast from 'react-hot-toast';
 
 const Profile = () => {
+  // SECTION: Redux
   const dispatch = useDispatch();
   const { user } = useSelector(s => s.auth);
+
+  // SECTION: State
   const [tab, setTab] = useState('profile');
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
@@ -16,6 +19,7 @@ const Profile = () => {
   const [addressForm, setAddressForm] = useState({ fullName: '', phone: '', addressLine1: '', addressLine2: '', city: '', state: '', postalCode: '', country: 'US', isDefault: false });
   const [showAddressForm, setShowAddressForm] = useState(false);
 
+  // SECTION: Handlers
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     dispatch(updateProfile({ name, email }));
@@ -42,10 +46,12 @@ const Profile = () => {
 
   const tabs = [{ id: 'profile', label: 'Profile', icon: HiOutlineUser }, { id: 'password', label: 'Password', icon: HiOutlineLockClosed }, { id: 'addresses', label: 'Addresses', icon: HiOutlineLocationMarker }];
 
+  // SECTION: JSX
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
       <h1 className="text-2xl md:text-3xl font-bold mb-8">My Account</h1>
       <div className="grid md:grid-cols-4 gap-6">
+        {/* Tab navigation */}
         <div className="md:col-span-1">
           <div className="card p-4 space-y-1">
             {tabs.map(t => (
@@ -55,6 +61,7 @@ const Profile = () => {
             ))}
           </div>
         </div>
+        {/* Tab content */}
         <div className="md:col-span-3">
           {tab === 'profile' && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="card p-6">

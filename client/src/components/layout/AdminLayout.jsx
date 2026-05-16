@@ -1,7 +1,9 @@
+// SECTION: Imports — admin shell with sidebar nav and nested <Outlet /> pages
 import { NavLink, Outlet, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { HiOutlineViewGrid, HiOutlineCube, HiOutlineClipboardList, HiOutlineUsers, HiOutlineTag, HiOutlineCollection, HiOutlineArrowLeft } from 'react-icons/hi';
 
+// SECTION: Admin nav routes — dashboard, catalog, orders, users, coupons, categories
 const links = [
   { to: '/admin', label: 'Dashboard', icon: HiOutlineViewGrid, end: true },
   { to: '/admin/products', label: 'Products', icon: HiOutlineCube },
@@ -13,12 +15,13 @@ const links = [
 
 const AdminLayout = () => {
   const { user } = useSelector(s => s.auth);
+  // SECTION: Auth guard — non-admins redirect to storefront home
   if (!user || user.role !== 'admin') return <Navigate to="/" replace />;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
       <div className="flex gap-6">
-        {/* Sidebar */}
+        {/* SECTION: Desktop sidebar — sticky nav with active link styling */}
         <aside className="hidden md:block w-60 flex-shrink-0">
           <div className="card p-4 sticky top-24 space-y-1">
             <div className="px-4 py-3 mb-2"><h2 className="font-bold text-lg">Admin Panel</h2><p className="text-xs text-[var(--color-text-secondary)]">{user.email}</p></div>
@@ -32,7 +35,7 @@ const AdminLayout = () => {
           </div>
         </aside>
 
-        {/* Mobile nav */}
+        {/* SECTION: Mobile nav — horizontal scroll tabs for small screens */}
         <div className="md:hidden w-full overflow-x-auto mb-4">
           <div className="flex gap-2 pb-2">
             {links.map(l => (
@@ -43,7 +46,7 @@ const AdminLayout = () => {
           </div>
         </div>
 
-        {/* Content */}
+        {/* SECTION: Page content — child admin routes render here via Outlet */}
         <main className="flex-1 min-w-0"><Outlet /></main>
       </div>
     </div>

@@ -1,7 +1,11 @@
+/** SECTION: Wishlist slice — saved products (client-side, synced to localStorage) */
+
 import { createSlice } from '@reduxjs/toolkit';
 
+// ─── Restore wishlist from localStorage ───
 const wishlistItems = JSON.parse(localStorage.getItem('wishlistItems')) || [];
 
+// ─── Slice: toggle / remove items and persist ───
 const wishlistSlice = createSlice({
   name: 'wishlist',
   initialState: { items: wishlistItems },

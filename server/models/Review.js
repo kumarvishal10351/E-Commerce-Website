@@ -1,6 +1,12 @@
+/**
+ * SECTION: Review model
+ * Per-user product ratings; keeps Product.ratingsAverage in sync via hooks.
+ */
+
 const mongoose = require('mongoose');
 const Product = require('./Product');
 
+// ─── Review schema ───
 const reviewSchema = new mongoose.Schema(
   {
     user: {
@@ -33,9 +39,11 @@ const reviewSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// ─── Indexes ───
 // Prevent user from submitting more than one review per product
 reviewSchema.index({ user: 1, product: 1 }, { unique: true });
 
+// ─── Static methods & lifecycle hooks ───
 // Static method to calculate average rating
 reviewSchema.statics.calcAverageRating = async function (productId) {
   const stats = await this.aggregate([

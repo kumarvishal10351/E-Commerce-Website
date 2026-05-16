@@ -6,10 +6,12 @@ import { forgotPasswordAPI } from '../store/api';
 import toast from 'react-hot-toast';
 
 const ForgotPassword = () => {
+  // SECTION: State
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
+  // SECTION: Handlers
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -21,6 +23,7 @@ const ForgotPassword = () => {
     finally { setLoading(false); }
   };
 
+  // SECTION: JSX
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
@@ -29,6 +32,7 @@ const ForgotPassword = () => {
           <p className="text-[var(--color-text-secondary)] mt-1">We'll send you a reset link</p>
         </div>
         <div className="card p-8">
+          {/* Success or form */}
           {sent ? (
             <div className="text-center py-4">
               <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">

@@ -1,7 +1,11 @@
+/** SECTION: UI slice — theme, drawers, search overlay, and cart panel state */
+
 import { createSlice } from '@reduxjs/toolkit';
 
+// ─── Default theme (app also reads/writes document class + localStorage) ───
 const getInitialTheme = () => 'dark';
 
+// ─── Slice: global chrome toggles (not tied to server data) ───
 const uiSlice = createSlice({
   name: 'ui',
   initialState: { theme: getInitialTheme(), sidebarOpen: false, searchOpen: false, cartOpen: false, cartBounce: false },

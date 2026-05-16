@@ -1,3 +1,4 @@
+// SECTION: Imports — GSAP orbit animation, staggered headline, CTA buttons
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -11,17 +12,20 @@ import { prefersReducedMotion } from '../../utils/motion';
 const Hero = () => {
   const orbitRef = useRef(null);
 
+  // SECTION: GSAP effect — slow continuous rotation of floating product images
   useEffect(() => {
     if (prefersReducedMotion() || !orbitRef.current) return;
     const items = orbitRef.current.querySelectorAll('.orbit-item');
     gsap.to(items, { rotation: 360, duration: 40, repeat: -1, ease: 'none', transformOrigin: '50% 50%' });
   }, []);
 
+  // SECTION: Headline data — split into letters for staggered reveal animation
   const headline = 'Curated Luxury';
   const letters = headline.split('');
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden noise-overlay dot-grid">
+      {/* SECTION: Background — hero image, gradient overlay, ambient glow blobs */}
       <div className="absolute inset-0">
         <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&h=900&fit=crop" alt="" className="w-full h-full object-cover opacity-30" loading="eager" />
         <div className="absolute inset-0 bg-gradient-to-b from-luxury-bg/40 via-luxury-bg/80 to-luxury-bg" />
@@ -29,12 +33,14 @@ const Hero = () => {
         <motion.div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-luxury-gold/20 rounded-full blur-[120px] animate-pulse-glow" />
       </div>
 
+      {/* SECTION: Floating products — decorative orbit images on large screens */}
       <div ref={orbitRef} className="absolute inset-0 pointer-events-none hidden lg:block">
         {['sneakers', 'watch', 'perfume'].map((kw, i) => (
           <img key={kw} src={`https://images.unsplash.com/photo-${i === 0 ? '1542291026-7eec264c27ff' : i === 1 ? '1523275335684-37898b6baf30' : '1541643600914-78b084683601'}?w=200&h=200&fit=crop`} alt="" className={`orbit-item absolute w-24 h-24 rounded-2xl object-cover border border-white/10 shadow-glow animate-float ${i === 0 ? 'top-[20%] right-[15%]' : i === 1 ? 'top-[50%] right-[8%]' : 'top-[35%] right-[25%]'}`} style={{ animationDelay: `${i * 0.5}s` }} loading="lazy" />
         ))}
       </div>
 
+      {/* SECTION: Hero copy — tagline, animated title, description, CTAs */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-32 w-full">
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="font-accent text-luxury-gold tracking-[0.3em] uppercase text-sm mb-6">
           Spring Collection 2025

@@ -1,5 +1,11 @@
+/**
+ * SECTION: Outbound email (Nodemailer)
+ * Sends transactional mail (welcome, password reset, order updates) via SMTP.
+ */
+
 const nodemailer = require('nodemailer');
 
+// ─── sendEmail — options: { email, subject, html } ───
 /**
  * Send email using Nodemailer.
  * Supports Gmail SMTP and other SMTP providers.

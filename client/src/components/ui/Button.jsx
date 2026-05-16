@@ -1,3 +1,4 @@
+// SECTION: Imports — motion for tap animation; prefersReducedMotion respects accessibility
 import { motion } from 'framer-motion';
 import { prefersReducedMotion } from '../../utils/motion';
 
@@ -6,8 +7,10 @@ import { prefersReducedMotion } from '../../utils/motion';
  * @param {{ children: React.ReactNode, variant?: 'primary'|'ghost'|'outline', className?: string, magnetic?: boolean, loading?: boolean, onClick?: () => void, type?: string, disabled?: boolean }} props
  */
 const Button = ({ children, variant = 'primary', className = '', magnetic = false, loading, onClick, type = 'button', disabled, ...rest }) => {
+  // SECTION: Variant styles — maps variant prop to CSS utility classes
   const base = variant === 'primary' ? 'btn-gradient' : variant === 'ghost' ? 'btn-ghost' : 'btn-ghost border-luxury-purple/40';
 
+  // SECTION: Magnetic hover — shifts button toward cursor; skipped when reduced motion is preferred
   const handleMouseMove = (e) => {
     if (!magnetic || prefersReducedMotion()) return;
     const btn = e.currentTarget;
@@ -21,6 +24,7 @@ const Button = ({ children, variant = 'primary', className = '', magnetic = fals
     e.currentTarget.style.transform = '';
   };
 
+  // SECTION: Render — motion.button with loading spinner or children
   return (
     <motion.button
       type={type}

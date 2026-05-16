@@ -9,9 +9,11 @@ const COLORS = ['#f59e0b', '#3b82f6', '#22c55e', '#ef4444', '#8b5cf6', '#ec4899'
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 const Dashboard = () => {
+  // SECTION: State
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // SECTION: Effects
   useEffect(() => {
     const fetch = async () => {
       try { const res = await getDashboardStatsAPI(); setStats(res.data.stats); }
@@ -21,11 +23,13 @@ const Dashboard = () => {
     fetch();
   }, []);
 
+  // SECTION: JSX — loading
   if (loading) return <div className="space-y-6"><div className="grid grid-cols-2 lg:grid-cols-4 gap-4">{Array.from({length:4}).map((_,i)=><Skeleton key={i} className="h-32 rounded-2xl" />)}</div><Skeleton className="h-80 rounded-2xl" /></div>;
 
   const revenueData = stats?.monthlyRevenue?.map(m => ({ name: months[m._id.month - 1], revenue: m.revenue, orders: m.orders })) || [];
   const statusData = stats?.ordersByStatus?.map(s => ({ name: s._id, value: s.count })) || [];
 
+  // SECTION: Derived data
   const statCards = [
     { label: 'Total Revenue', value: `$${(stats?.totalRevenue || 0).toLocaleString()}`, icon: HiOutlineCurrencyDollar, color: 'from-green-400 to-green-600', bg: 'bg-green-50 dark:bg-green-900/20' },
     { label: 'Total Orders', value: stats?.totalOrders || 0, icon: HiOutlineShoppingBag, color: 'from-blue-400 to-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/20' },
@@ -33,6 +37,7 @@ const Dashboard = () => {
     { label: 'Total Products', value: stats?.totalProducts || 0, icon: HiOutlineCube, color: 'from-primary-400 to-primary-600', bg: 'bg-primary-50 dark:bg-primary-900/20' },
   ];
 
+  // SECTION: JSX
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Dashboard Overview</h1>
