@@ -21,9 +21,9 @@ const seedDB = async () => {
     console.log('Data cleared');
 
     // Create admin user
-    const admin = await User.create({ name: 'Admin User', email: 'admin@shopverse.com', password: 'admin123', role: 'admin' });
+    const admin = await User.create({ name: 'Admin User', email: 'admin@luxe.shop', password: 'admin123', role: 'admin' });
     // Create test user
-    await User.create({ name: 'John Doe', email: 'john@example.com', password: 'password123', role: 'user', addresses: [{ fullName: 'John Doe', phone: '+1234567890', addressLine1: '123 Main St', city: 'New York', state: 'NY', postalCode: '10001', country: 'US', isDefault: true }] });
+    await User.create({ name: 'John Doe', email: 'john@luxe.shop', password: 'password123', role: 'user', addresses: [{ fullName: 'John Doe', phone: '+1234567890', addressLine1: '123 Main St', city: 'New York', state: 'NY', postalCode: '10001', country: 'US', isDefault: true }] });
     console.log('Users created');
 
     // Create categories
@@ -45,8 +45,8 @@ const seedDB = async () => {
     console.log('Coupons created');
 
     console.log('Database seeded successfully!');
-    console.log('Admin login: admin@shopverse.com / admin123');
-    console.log('User login: john@example.com / password123');
+    console.log('Admin login: admin@luxe.shop / admin123');
+    console.log('User login: john@luxe.shop / password123');
     process.exit(0);
   } catch (error) {
     console.error('Seed error:', error);

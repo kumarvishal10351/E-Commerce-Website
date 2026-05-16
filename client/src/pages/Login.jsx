@@ -34,8 +34,8 @@ const Login = () => {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary-400 to-primary-600 rounded-xl flex items-center justify-center"><span className="text-white font-black text-xl">S</span></div>
-            <span className="text-2xl font-bold">Shop<span className="text-primary-500">Verse</span></span>
+            <span className="w-10 h-10 rounded-xl bg-gradient-luxury flex items-center justify-center font-serif font-bold text-xl text-white">L</span>
+            <span className="text-2xl font-serif font-bold">LUXE</span>
           </Link>
           <h1 className="text-2xl font-bold">Welcome back</h1>
           <p className="text-[var(--color-text-secondary)] mt-1">Sign in to your account</p>
@@ -46,7 +46,7 @@ const Login = () => {
             <div>
               <label htmlFor="email" className="text-sm font-medium block mb-1.5">Email</label>
               <div className="relative">
-                <input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="you@example.com" className="input-field pl-11" />
+                <input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="you@luxe.shop" className="input-field pl-11" />
                 <HiOutlineMail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               </div>
             </div>
@@ -71,7 +71,9 @@ const Login = () => {
           </div>
         </div>
 
-        <p className="text-xs text-center text-[var(--color-text-secondary)] mt-6">Demo: admin@shopverse.com / admin123</p>
+        <p className="text-xs text-center text-[var(--color-text-secondary)] mt-6">
+          Demo · Admin: <span className="font-mono text-luxury-muted">admin@luxe.shop</span> / admin123 · User: <span className="font-mono text-luxury-muted">john@luxe.shop</span> / password123
+        </p>
       </motion.div>
     </div>
   );

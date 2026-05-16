@@ -42,7 +42,7 @@ const ForgotPassword = () => {
               <div>
                 <label htmlFor="fp-email" className="text-sm font-medium block mb-1.5">Email Address</label>
                 <div className="relative">
-                  <input id="fp-email" type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="you@example.com" className="input-field pl-11" />
+                  <input id="fp-email" type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="you@luxe.shop" className="input-field pl-11" />
                   <HiOutlineMail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 </div>
               </div>
