@@ -1,0 +1,7 @@
+[
+  { "name": "Footwear", "slug": "footwear", "description": "Sneakers, runners and lifestyle kicks", "image": { "public_id": "cat_footwear", "url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop" } },
+  { "name": "Clothing", "slug": "clothing", "description": "Premium apparel for every occasion", "image": { "public_id": "cat_clothing", "url": "https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&h=600&fit=crop" } },
+  { "name": "Accessories", "slug": "accessories", "description": "Watches, bags and statement pieces", "image": { "public_id": "cat_accessories", "url": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop" } },
+  { "name": "Electronics", "slug": "electronics", "description": "Audio, gadgets and smart devices", "image": { "public_id": "cat_electronics", "url": "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=600&h=600&fit=crop" } },
+  { "name": "Beauty & Fragrance", "slug": "beauty-fragrance", "description": "Luxury scents and skincare essentials", "image": { "public_id": "cat_beauty", "url": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop" } }
+]
