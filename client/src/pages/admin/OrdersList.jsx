@@ -1,3 +1,9 @@
+/**
+ * Admin order management page. Lets admins review and update orders.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Skeleton from '../../components/ui/Skeleton';

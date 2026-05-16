@@ -1,3 +1,9 @@
+/**
+ * Admin categories management page. Shows category cards and handles category actions.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { useState, useEffect } from 'react';
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineX } from 'react-icons/hi';
 import { getAllCategoriesAPI, createCategoryAPI, updateCategoryAPI, deleteCategoryAPI } from '../../store/api';

@@ -1,3 +1,9 @@
+/**
+ * 404 page. Shown when no route matches the requested URL.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Button from '../components/ui/Button';

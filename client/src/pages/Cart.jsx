@@ -1,3 +1,9 @@
+/**
+ * Shopping cart page. Shows items in the cart and checkout options.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';

@@ -1,3 +1,9 @@
+/**
+ * Registration page. Lets new users sign up for an account.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';

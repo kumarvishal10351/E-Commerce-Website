@@ -1,3 +1,9 @@
+/**
+ * Public home page. Combines hero, categories, product previews, and marketing sections.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';

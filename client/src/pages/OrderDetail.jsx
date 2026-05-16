@@ -1,3 +1,9 @@
+/**
+ * Order detail page. Shows information for a single order.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';

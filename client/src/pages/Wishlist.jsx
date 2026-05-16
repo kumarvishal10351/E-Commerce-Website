@@ -1,3 +1,9 @@
+/**
+ * Wishlist page. Shows products the user has saved for later.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';

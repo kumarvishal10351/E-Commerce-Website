@@ -1,3 +1,9 @@
+/**
+ * Order history page for the signed-in user. Lists past orders.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';

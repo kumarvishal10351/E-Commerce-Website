@@ -1,3 +1,9 @@
+/**
+ * Admin users list page. Shows registered users and account controls.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { useState, useEffect } from 'react';
 import { HiOutlineShieldCheck, HiOutlineBan } from 'react-icons/hi';
 import Skeleton from '../../components/ui/Skeleton';

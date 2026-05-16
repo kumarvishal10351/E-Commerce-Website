@@ -1,3 +1,9 @@
+/**
+ * Password reset request page. Lets users ask for a reset email.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';

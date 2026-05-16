@@ -1,3 +1,9 @@
+/**
+ * Admin dashboard page. Displays overview stats and quick links.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HiOutlineShoppingBag, HiOutlineCurrencyDollar, HiOutlineUsers, HiOutlineCube, HiOutlineTrendingUp } from 'react-icons/hi';

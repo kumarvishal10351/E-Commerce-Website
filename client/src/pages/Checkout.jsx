@@ -1,3 +1,9 @@
+/**
+ * Checkout page. Collects order and payment details before purchase.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

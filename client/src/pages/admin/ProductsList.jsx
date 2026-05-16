@@ -1,3 +1,9 @@
+/**
+ * Admin products list page. Shows product cards and management actions.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';

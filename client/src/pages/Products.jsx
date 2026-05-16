@@ -1,3 +1,9 @@
+/**
+ * Product listing and filter page. Shows catalog and search results.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';

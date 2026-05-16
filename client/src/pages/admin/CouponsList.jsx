@@ -1,3 +1,9 @@
+/**
+ * Admin coupons management page. Lists coupon codes and their details.
+ *
+ * This file renders the page UI and handles page-specific state, effects, and user actions.
+ */
+
 import { useState, useEffect } from 'react';
 import { HiOutlinePlus, HiOutlineTrash } from 'react-icons/hi';
 import { getCouponsAPI, createCouponAPI, deleteCouponAPI } from '../../store/api';
